@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSA-Phase-3.API", "MSA-Phase-3.API.csproj", "{A3BBDEED-CFAF-4452-A8F0-2B7CB05EDEC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSA-Phase-3.API", "MSA-Phase-3.Api\MSA-Phase-3.API.csproj", "{A3BBDEED-CFAF-4452-A8F0-2B7CB05EDEC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
