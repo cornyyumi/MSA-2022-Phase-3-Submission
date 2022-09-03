@@ -26,4 +26,10 @@
     <ProjectReference Include="..\MSA-Phase-3.Service\MSAPhase-3.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="MSAPhase3.sqlite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
