@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using MSA_Phase_3.Domain.Data;
 using MSA_Phase_3.Domain.Models;
 namespace MSA_Phase_3.API.Controllers
@@ -25,5 +27,11 @@ namespace MSA_Phase_3.API.Controllers
             return Ok(user);
         }
 
+        [HttpPost("AddBook")]
+        public ActionResult AddBookToUser(Book book)
+        {
+            Book addBook = _appRepo.addBook(book);
+            return Ok();
+        }
     }
 }
