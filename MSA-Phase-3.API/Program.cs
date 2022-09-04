@@ -18,10 +18,6 @@ builder.Services.AddDbContext<ProjDbContext>(
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHttpClient("weatherman", configureClient: client =>
-{
-    client.BaseAddress = new Uri(@"https://api.openweathermap.org");
-});
 
 builder.Services.AddHttpClient("OpenLib", configureClient: client =>
 {
