@@ -5,6 +5,8 @@ using MSA_Phase_3.Domain.Data;
 using MSA_Phase_3.Domain.Models;
 namespace MSA_Phase_3.API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private readonly HttpClient _client;
