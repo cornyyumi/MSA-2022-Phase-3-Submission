@@ -20,11 +20,25 @@ namespace MSA_Phase_3.API.Controllers
             _appRepo = repo;
         }
 
+        [HttpGet("GetAlllUsers")]
+        public ActionResult GetAlllUsers()
+        {
+            IEnumerable<User> users = _appRepo.getUsers();
+            return Ok(users);
+        }
+
         [HttpPost("AddUser")]
         public ActionResult AddUser(string username)
         {
             User user = _appRepo.addUser(username);
             return Ok(user);
+        }
+
+        [HttpGet("GetAlllBooks")]
+        public ActionResult GetAlllBooks()
+        {
+            IEnumerable<Book> books = _appRepo.getBooks();
+            return Ok(books);
         }
 
         [HttpPost("AddBook")]
