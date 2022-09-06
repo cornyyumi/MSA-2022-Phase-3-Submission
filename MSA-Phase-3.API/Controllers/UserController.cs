@@ -30,9 +30,9 @@ namespace MSA_Phase_3.API.Controllers
         }
 
         [HttpPost("AddUser")]
-        public ActionResult AddUser(string username)
+        public ActionResult AddUser(User user)
         {
-            User user = _appRepo.addUser(username);
+            User user = _appRepo.addUser(user);
             return Ok(user);
         }
 

@@ -10,17 +10,17 @@ namespace MSA_Phase_3.Domain.Data
             this._dbContext = dbContext;
         }
 
-        public User addUser(string username)
+        public User addUser(User user)
         {
 
-            User user = _dbContext.Users.FirstOrDefault(x => x.UserName == username);
-            if (user == null)
+            User newuser = _dbContext.Users.FirstOrDefault(x => x.UserName == user.UserName);
+            if (newuser == null)
             {
-                user = new User { UserName = username };
+                newuser = new User { UserName = user.UserName };
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();
             }
-            return user;
+            return newuser;
         }
 
         public IEnumerable<User> getUsers()
