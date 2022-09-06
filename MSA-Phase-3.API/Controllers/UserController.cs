@@ -32,8 +32,8 @@ namespace MSA_Phase_3.API.Controllers
         [HttpPost("AddUser")]
         public ActionResult AddUser(User user)
         {
-            User user = _appRepo.addUser(user);
-            return Ok(user);
+            User newUser = _appRepo.addUser(user);
+            return Ok(newUser);
         }
 
         [HttpGet("GetAlllBooks")]
