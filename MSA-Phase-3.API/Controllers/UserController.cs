@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using MSA_Phase_3.Domain.Data;
 using MSA_Phase_3.Domain.Models;
+using MSA_Phase_3.Domain.Dto;
+
 namespace MSA_Phase_3.API.Controllers
 {
     [ApiController]
@@ -30,7 +32,7 @@ namespace MSA_Phase_3.API.Controllers
         }
 
         [HttpPost("AddUser")]
-        public ActionResult AddUser(User user)
+        public ActionResult AddUser(UserDTO user)
         {
             User newUser = _appRepo.addUser(user);
             return Ok(newUser);

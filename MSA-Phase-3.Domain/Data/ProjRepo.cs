@@ -1,4 +1,5 @@
 ﻿using MSA_Phase_3.Domain.Models;
+using MSA_Phase_3.Domain.Dto;
 
 namespace MSA_Phase_3.Domain.Data
 {
@@ -10,14 +11,14 @@ namespace MSA_Phase_3.Domain.Data
             this._dbContext = dbContext;
         }
 
-        public User addUser(User user)
+        public User addUser(UserDTO user)
         {
 
             User newuser = _dbContext.Users.FirstOrDefault(x => x.UserName == user.UserName);
             if (newuser == null)
             {
                 newuser = new User { UserName = user.UserName };
-                _dbContext.Users.Add(user);
+                _dbContext.Users.Add(newuser);
                 _dbContext.SaveChanges();
             }
             return newuser;
