@@ -4,7 +4,7 @@ namespace MSA_Phase_3.Domain.Data
 {
     public interface IProjRepo
     {
-        User addUser(string username);
+        User addUser(User user);
         IEnumerable<User> getUsers();
 
         Book addBook(Book root);
