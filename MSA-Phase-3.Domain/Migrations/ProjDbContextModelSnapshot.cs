@@ -42,7 +42,12 @@ namespace MSA_Phase_3.Domain.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Isbn_13")
-                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("fileImageURL")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("title")

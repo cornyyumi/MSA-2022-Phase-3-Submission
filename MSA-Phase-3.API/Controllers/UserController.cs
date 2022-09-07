@@ -49,7 +49,7 @@ namespace MSA_Phase_3.API.Controllers
         public ActionResult AddBookToUser(Book book)
         {
             Book addBook = _appRepo.addBook(book);
-            return Ok();
+            return Ok(addBook);
         }
     }
 }

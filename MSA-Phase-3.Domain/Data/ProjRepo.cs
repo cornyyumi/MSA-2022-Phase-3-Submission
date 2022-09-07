@@ -33,9 +33,15 @@ namespace MSA_Phase_3.Domain.Data
         public Book addBook(Book bookinfo)
         {
             Book book = _dbContext.Books.FirstOrDefault(e => e.Id == bookinfo.Id);
-            if (book != null)
+            if (book == null)
             {
-                _dbContext.Books.Add(book);
+                Book newBook = new Book {
+                    title = bookinfo.title,
+                    description = bookinfo.description,
+                    Isbn_13 = bookinfo.Isbn_13,
+                    fileImageURL = bookinfo.fileImageURL
+                };
+                _dbContext.Books.Add(newBook);
                 _dbContext.SaveChanges();
             }
             return book;
