@@ -5,13 +5,17 @@ namespace MSA_Phase_3.Domain.Data
 {
     public interface IProjRepo
     {
-        User addUser(UserDTO user);
+        User login(UserLogin user);
+        User register(UserLogin user);
+        User getUser(string username);
         IEnumerable<User> getUsers();
 
         Book addBook(string isbn);
+        Book getBook(int id);
+        Book getBook(string isbn);
         IEnumerable<Book> getBooks();
-
-        Author addAuthor(Author author);
-        IEnumerable<Author> getAuthors();
+        UserBook getUserBook(User user, string isbn);
+        IEnumerable<UserBook> getUserBooks(string username);
+        UserBook addUserBook(User user, string isbn);
     }
 }
