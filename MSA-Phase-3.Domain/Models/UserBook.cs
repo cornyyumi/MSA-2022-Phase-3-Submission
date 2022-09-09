@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace MSA_Phase_3.Domain.Models
 {
-    public class User
+    public class UserBook
     {
-        [Key]
         public string UserName { get; set; }
-        public string Password { get; set; }
-        public List<UserBook> UserBooks { get; set; }
+        public User User { get; set; }
+
+        public int BookId { get; set; }
+        public Book Book { get; set; }
     }
 }

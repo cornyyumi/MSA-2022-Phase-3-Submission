@@ -11,17 +11,27 @@ namespace MSA_Phase_3.Domain.Data
             this._dbContext = dbContext;
         }
 
-        public User addUser(UserDTO user)
+        public User login(UserLogin user)
+        {
+            User loginUser = _dbContext.Users.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
+            return loginUser;
+        }
+        public User register(UserLogin user)
         {
 
             User newuser = _dbContext.Users.FirstOrDefault(x => x.UserName == user.UserName);
             if (newuser == null)
             {
-                newuser = new User { UserName = user.UserName };
+                newuser = new User { UserName = user.UserName, Password = user.Password};
                 _dbContext.Users.Add(newuser);
                 _dbContext.SaveChanges();
             }
             return newuser;
+        }
+        public User getUser(string username)
+        {
+            User user = _dbContext.Users.FirstOrDefault(e => e.UserName == username);
+            return user;
         }
 
         public IEnumerable<User> getUsers()
@@ -43,26 +53,45 @@ namespace MSA_Phase_3.Domain.Data
             }
             return book;
         }
+
+        public Book getBook(string isbn)
+        {
+            Book book = _dbContext.Books.FirstOrDefault(e => e.Isbn_13 == isbn);
+            return book;
+        }
+
         public IEnumerable<Book> getBooks()
         {
             List<Book> books = _dbContext.Books.ToList();
             return books;
         }
 
-        public Author addAuthor(Author authorinfo)
+        public IEnumerable<UserBook> getUserBooks(string username)
         {
-            Author author = _dbContext.Authors.FirstOrDefault(e => e.Id == authorinfo.Id);
-            if (author != null)
-            {
-                _dbContext.Authors.Add(author);
-                _dbContext.SaveChanges();
-            }
-            return author;
+            List<UserBook> books = _dbContext.UserBooks.Where(e => e.UserName == e.UserName).ToList();
+            return books;
         }
-        public IEnumerable<Author> getAuthors()
+
+        public UserBook getUserBook(User user, string isbn)
         {
-            List<Author> authors = _dbContext.Authors.ToList();
-            return authors;
+            UserBook book = _dbContext.UserBooks.FirstOrDefault(e => e.UserName == user.UserName && e.Book.Isbn_13 == isbn);
+            return book;
+        }
+
+        public UserBook addUserBook(User user, string isbn)
+        {
+            Book book = _dbContext.Books.FirstOrDefault(e => e.Isbn_13 == isbn);
+            UserBook ub = new UserBook
+            {
+                UserName = user.UserName,
+                User = user,
+                BookId = book.Id,
+                Book = book
+            };
+            _dbContext.UserBooks.Add(ub);
+            _dbContext.SaveChanges();
+            return ub;
+
         }
     }
 }

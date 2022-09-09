@@ -8,6 +8,7 @@ namespace MSA_Phase_3.Domain.Models
         [Key]
         public int Id { get; set; }
         public string Isbn_13 { get; set; }
+        public List<UserBook> UserBooks { get; set; }
 
     }
 }
