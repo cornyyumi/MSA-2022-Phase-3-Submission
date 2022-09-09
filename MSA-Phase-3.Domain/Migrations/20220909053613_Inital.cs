@@ -30,10 +30,7 @@ namespace MSA_Phase_3.Domain.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    title = table.Column<string>(type: "TEXT", nullable: false),
-                    Isbn_13 = table.Column<string>(type: "TEXT", nullable: true),
-                    fileImageURL = table.Column<string>(type: "TEXT", nullable: true),
-                    description = table.Column<string>(type: "TEXT", nullable: true)
+                    Isbn_13 = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MSA_Phase_3.Domain.Migrations
 {
     [DbContext(typeof(ProjDbContext))]
-    [Migration("20220907063230_Inital")]
+    [Migration("20220909053613_Inital")]
     partial class Inital
     {
         /// <inheritdoc />
@@ -45,15 +45,6 @@ namespace MSA_Phase_3.Domain.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Isbn_13")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("fileImageURL")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

@@ -8,7 +8,7 @@ namespace MSA_Phase_3.Domain.Data
         User addUser(UserDTO user);
         IEnumerable<User> getUsers();
 
-        Book addBook(Book root);
+        Book addBook(string isbn);
         IEnumerable<Book> getBooks();
 
         Author addAuthor(Author author);
