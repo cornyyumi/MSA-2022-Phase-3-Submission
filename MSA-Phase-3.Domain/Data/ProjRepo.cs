@@ -54,6 +54,12 @@ namespace MSA_Phase_3.Domain.Data
             return book;
         }
 
+        public Book getBook(int id)
+        {
+            Book book = _dbContext.Books.FirstOrDefault(e => e.Id == id);
+            return book;
+        }
+
         public Book getBook(string isbn)
         {
             Book book = _dbContext.Books.FirstOrDefault(e => e.Isbn_13 == isbn);
@@ -68,7 +74,7 @@ namespace MSA_Phase_3.Domain.Data
 
         public IEnumerable<UserBook> getUserBooks(string username)
         {
-            List<UserBook> books = _dbContext.UserBooks.Where(e => e.UserName == e.UserName).ToList();
+            List<UserBook> books = _dbContext.UserBooks.Where(e => e.UserName == username).ToList();
             return books;
         }
 

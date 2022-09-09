@@ -72,7 +72,16 @@ namespace MSA_Phase_3.API.Controllers
         public ActionResult GetAlllBooks()
         {
             IEnumerable<Book> books = _appRepo.getBooks();
-            return Ok(books);
+            List<BookDTO> BookDTOs = new List<BookDTO>();
+            foreach (Book book in books)
+            {
+                BookDTOs.Add(new BookDTO
+                {
+                    Isbn_13 = book.Isbn_13
+
+                });
+            }
+            return Ok(BookDTOs);
         }
 
         [Authorize]
@@ -80,11 +89,19 @@ namespace MSA_Phase_3.API.Controllers
         public ActionResult GetUserBooks()
         {
             User user = _appRepo.getUser(User.FindFirstValue("UserName"));
-            if (user != null)
+            IEnumerable<UserBook> books = _appRepo.getUserBooks(user.UserName);
+            List<BookDTO> BookDTOs = new List<BookDTO>();
+            foreach (UserBook book in books)
             {
-                IEnumerable<UserBook> books = _appRepo.getUserBooks(user.UserName);
+                Book book1 = _appRepo.getBook(book.BookId);
+                BookDTOs.Add(new BookDTO
+                {
+                    Isbn_13 = book1.Isbn_13
+
+                });
             }
-            return Ok(user);
+
+            return Ok(BookDTOs);
         }
 
 
@@ -103,7 +120,11 @@ namespace MSA_Phase_3.API.Controllers
             {
                 addBook = _appRepo.addUserBook(user, isbn);
             }
-            return Ok(addBook);
+            
+            return Ok(new BookDTO
+            {
+                Isbn_13 = isbn
+            });
         }
     }
 }

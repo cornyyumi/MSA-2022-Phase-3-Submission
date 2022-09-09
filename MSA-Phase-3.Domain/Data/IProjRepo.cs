@@ -11,6 +11,7 @@ namespace MSA_Phase_3.Domain.Data
         IEnumerable<User> getUsers();
 
         Book addBook(string isbn);
+        Book getBook(int id);
         Book getBook(string isbn);
         IEnumerable<Book> getBooks();
         UserBook getUserBook(User user, string isbn);
