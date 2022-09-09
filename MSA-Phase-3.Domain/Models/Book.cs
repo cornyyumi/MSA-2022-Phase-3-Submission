@@ -7,9 +7,7 @@ namespace MSA_Phase_3.Domain.Models
     {
         [Key]
         public int Id { get; set; }
-        public string title { get; set; }
-        public string? Isbn_13 { get; set; }
-        public string? fileImageURL { get; set; }
-        public string? description { get; set; }
+        public string Isbn_13 { get; set; }
+
     }
 }

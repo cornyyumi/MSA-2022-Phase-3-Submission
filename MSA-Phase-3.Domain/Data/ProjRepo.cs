@@ -30,16 +30,13 @@ namespace MSA_Phase_3.Domain.Data
             return users;
 
         }
-        public Book addBook(Book bookinfo)
+        public Book addBook(string isbn)
         {
-            Book book = _dbContext.Books.FirstOrDefault(e => e.Id == bookinfo.Id);
+            Book book = _dbContext.Books.FirstOrDefault(e => e.Isbn_13 == isbn);
             if (book == null)
             {
                 Book newBook = new Book {
-                    title = bookinfo.title,
-                    description = bookinfo.description,
-                    Isbn_13 = bookinfo.Isbn_13,
-                    fileImageURL = bookinfo.fileImageURL
+                    Isbn_13 = isbn
                 };
                 _dbContext.Books.Add(newBook);
                 _dbContext.SaveChanges();

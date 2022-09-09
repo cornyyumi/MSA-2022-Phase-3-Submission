@@ -45,10 +45,10 @@ namespace MSA_Phase_3.API.Controllers
             return Ok(books);
         }
 
-        [HttpPost("AddBook")]
-        public ActionResult AddBookToUser(Book book)
+        [HttpPost("AddBook/{isbn}")]
+        public ActionResult AddBookToUser(string isbn)
         {
-            Book addBook = _appRepo.addBook(book);
+            Book addBook = _appRepo.addBook(isbn);
             return Ok(addBook);
         }
     }
