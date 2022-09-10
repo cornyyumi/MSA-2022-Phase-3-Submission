@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MSA_Phase_3.Domain.Models;
 
-namespace MSA_Phase_3.Domain.Data
+namespace MSA_Phase_3.Service.Data
 {
     public class ProjDbContext : DbContext
     {
 
-        
+
         public ProjDbContext(DbContextOptions<ProjDbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,8 +22,8 @@ namespace MSA_Phase_3.Domain.Data
                 .HasForeignKey(ap => ap.UserName)
                 .OnDelete(DeleteBehavior.Restrict);
         }
- 
-    
+
+
         public DbSet<User> Users { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<UserBook> UserBooks { get; set; }

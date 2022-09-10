@@ -1,4 +1,4 @@
-using MSA_Phase_3.Domain.Data;
+using MSA_Phase_3.Service.Data;
 using NSubstitute;
 namespace MSAPhase_3.Test
 {

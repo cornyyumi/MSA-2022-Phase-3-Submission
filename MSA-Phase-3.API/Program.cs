@@ -1,10 +1,11 @@
 using System.Text.Json.Serialization;
-using MSA_Phase_3.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using MSA_Phase_3.Service.Data;
+using MSA_Phase_3.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+builder.Services.AddScoped<IProjService, ProjService>();
+builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IProjRepo, ProjRepo>();
 builder.Services.AddDbContext<ProjDbContext>(
     options => options.UseSqlite(builder.Configuration["DataConnection"]));
@@ -65,7 +68,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddHttpClient("OpenLib", configureClient: client =>
 {
-    client.BaseAddress = new Uri(@"https://openlibrary.org");
+    client.BaseAddress = new Uri(@"https://openlibrary.org/");
 });
 
 var app = builder.Build();
