@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-using MSA_Phase_3.Domain.Data;
 using MSA_Phase_3.Domain.Models;
 using MSA_Phase_3.Domain.Dto;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
+using MSA_Phase_3.Service.Data;
+using MSA_Phase_3.Service.Services;
+
 namespace MSA_Phase_3.API.Controllers
 {
     [ApiController]
@@ -16,24 +16,22 @@ namespace MSA_Phase_3.API.Controllers
     public class UserController : Controller
     {
         public IConfiguration _configuration;
-        private readonly HttpClient _client;
-        private readonly IProjRepo _appRepo;
+        private readonly IProjService _projService;
+        private readonly IBookService _bookService;
 
-        public UserController(IConfiguration config, IHttpClientFactory clientFactory, IProjRepo repo)
+
+
+        public UserController(IConfiguration config, IProjService projService, IBookService bookService)
         {
-            if (clientFactory is null)
-            {
-                throw new ArgumentNullException(nameof(clientFactory));
-            }
-            _client = clientFactory.CreateClient("OpenLib");
-            _appRepo = repo;
             _configuration = config;
+            _projService = projService;
+            _bookService = bookService;
         }
 
         [HttpPost("login")]
         public ActionResult Login(UserLogin loginDetail)
         {
-            User user = _appRepo.login(loginDetail);
+            var user = _projService.login(loginDetail);
             if (user == null)
             {
                 return BadRequest("Invalid credentials");
@@ -56,7 +54,11 @@ namespace MSA_Phase_3.API.Controllers
         [HttpPost("register")]
         public ActionResult AddUser(UserLogin user)
         {
-            User newUser = _appRepo.register(user);
+            User newUser = _projService.register(user);
+            if (newUser == null)
+            {
+                return BadRequest("Invalid credentials");
+            }
             return Ok(newUser);
         }
 
@@ -64,14 +66,14 @@ namespace MSA_Phase_3.API.Controllers
         [HttpGet("getAllUsers")]
         public ActionResult GetAlllUsers()
         {
-            IEnumerable<User> users = _appRepo.getUsers();
+            IEnumerable<User> users = _projService.getUsers();
             return Ok(users);
         }
 
         [HttpGet("getAllBooks")]
         public ActionResult GetAlllBooks()
         {
-            IEnumerable<Book> books = _appRepo.getBooks();
+            IEnumerable<Book> books = _projService.getBooks();
             List<BookDTO> BookDTOs = new List<BookDTO>();
             foreach (Book book in books)
             {
@@ -88,12 +90,12 @@ namespace MSA_Phase_3.API.Controllers
         [HttpGet("getUserBooks")]
         public ActionResult GetUserBooks()
         {
-            User user = _appRepo.getUser(User.FindFirstValue("UserName"));
-            IEnumerable<UserBook> books = _appRepo.getUserBooks(user.UserName);
+            User user = _projService.getUser(User.FindFirstValue("UserName"));
+            IEnumerable<UserBook> books = _projService.getUserBooks(user.UserName);
             List<BookDTO> BookDTOs = new List<BookDTO>();
             foreach (UserBook book in books)
             {
-                Book book1 = _appRepo.getBook(book.BookId);
+                Book book1 = _projService.getBook(book.BookId);
                 BookDTOs.Add(new BookDTO
                 {
                     Isbn_13 = book1.Isbn_13
@@ -109,16 +111,20 @@ namespace MSA_Phase_3.API.Controllers
         [HttpPost("addBookToUser/{isbn}")]
         public ActionResult AddBookToUser(string isbn)
         {
-            User user = _appRepo.getUser(User.FindFirstValue("UserName"));
-            Book book = _appRepo.getBook(isbn);
+            User user = _projService.getUser(User.FindFirstValue("UserName"));
+            Book book = _projService.getBook(isbn);
+            if (!_bookService.IsRealBook(isbn).Result)
+            {
+                return BadRequest("Book with corresponding isbn does not exist");
+            }
             if (book == null)
             {
-                book = _appRepo.addBook(isbn);
+                book = _projService.addBook(isbn);
             }
-            UserBook addBook = _appRepo.getUserBook(user, isbn);
+            UserBook addBook = _projService.getUserBook(user, isbn);
             if (addBook == null)
             {
-                addBook = _appRepo.addUserBook(user, isbn);
+                addBook = _projService.addUserBook(user, isbn);
             }
             
             return Ok(new BookDTO

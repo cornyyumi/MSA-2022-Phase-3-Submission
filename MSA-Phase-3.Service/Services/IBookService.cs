@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSA_Phase_3.Service
+namespace MSA_Phase_3.Service.Services
 {
-    internal interface IProjService
+    public interface IBookService
     {
+        Task<bool> IsRealBook(string isbn);
     }
 }

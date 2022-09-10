@@ -1,15 +1,13 @@
 ﻿using MSA_Phase_3.Domain.Models;
-using MSA_Phase_3.Domain.Dto;
 
-namespace MSA_Phase_3.Domain.Data
+namespace MSA_Phase_3.Service.Services
 {
-    public interface IProjRepo
+    public interface IProjService
     {
         User login(UserLogin user);
         User register(UserLogin user);
         User getUser(string username);
         IEnumerable<User> getUsers();
-
         Book addBook(string isbn);
         Book getBook(int id);
         Book getBook(string isbn);

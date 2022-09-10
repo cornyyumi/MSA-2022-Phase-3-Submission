@@ -1,14 +1,14 @@
 ﻿using MSA_Phase_3.Domain.Models;
 using MSA_Phase_3.Domain.Dto;
 
-namespace MSA_Phase_3.Domain.Data
+namespace MSA_Phase_3.Service.Data
 {
     public class ProjRepo : IProjRepo
     {
         private readonly ProjDbContext _dbContext;
         public ProjRepo(ProjDbContext dbContext)
         {
-            this._dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         public User login(UserLogin user)
@@ -22,7 +22,7 @@ namespace MSA_Phase_3.Domain.Data
             User newuser = _dbContext.Users.FirstOrDefault(x => x.UserName == user.UserName);
             if (newuser == null)
             {
-                newuser = new User { UserName = user.UserName, Password = user.Password};
+                newuser = new User { UserName = user.UserName, Password = user.Password };
                 _dbContext.Users.Add(newuser);
                 _dbContext.SaveChanges();
             }
@@ -45,7 +45,8 @@ namespace MSA_Phase_3.Domain.Data
             Book book = _dbContext.Books.FirstOrDefault(e => e.Isbn_13 == isbn);
             if (book == null)
             {
-                Book newBook = new Book {
+                Book newBook = new Book
+                {
                     Isbn_13 = isbn
                 };
                 _dbContext.Books.Add(newBook);
