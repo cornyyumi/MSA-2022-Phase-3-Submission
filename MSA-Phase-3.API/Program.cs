@@ -6,7 +6,9 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using MSA_Phase_3.Service.Data;
 using MSA_Phase_3.Service.Services;
-
+using FluentValidation;
+using MSA_Phase_3.API.Validators;
+using MSA_Phase_3.Domain.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
+builder.Services.AddScoped<IValidator<UserLogin>, RegisterValidator>();
 builder.Services.AddScoped<IProjService, ProjService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IProjRepo, ProjRepo>();

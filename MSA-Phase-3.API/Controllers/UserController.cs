@@ -8,7 +8,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using MSA_Phase_3.Service.Data;
 using MSA_Phase_3.Service.Services;
-
+using FluentValidation;
+using FluentValidation.Results;
 namespace MSA_Phase_3.API.Controllers
 {
     [ApiController]
@@ -18,14 +19,16 @@ namespace MSA_Phase_3.API.Controllers
         public IConfiguration _configuration;
         private readonly IProjService _projService;
         private readonly IBookService _bookService;
+        private IValidator<UserLogin> _validator;
 
 
 
-        public UserController(IConfiguration config, IProjService projService, IBookService bookService)
+        public UserController(IValidator<UserLogin> validator,IConfiguration config, IProjService projService, IBookService bookService)
         {
             _configuration = config;
             _projService = projService;
             _bookService = bookService;
+            _validator = validator;
         }
 
         [HttpPost("login")]
@@ -52,8 +55,14 @@ namespace MSA_Phase_3.API.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult AddUser(UserLogin user)
+        public async Task<ActionResult> Register(UserLogin user)
         {
+            ValidationResult results = _validator.Validate(user);
+            if (!results.IsValid)
+            {
+                return BadRequest(results.ToString("~"));
+            }
+
             User newUser = _projService.register(user);
             if (newUser == null)
             {
