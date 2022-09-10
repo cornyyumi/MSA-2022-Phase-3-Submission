@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="NSubstitute" Version="4.4.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
@@ -20,6 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MSA-Phase-3.Api\MSAPhase-3.API.csproj" />
+    <ProjectReference Include="..\MSA-Phase-3.Domain\MSAPhase-3.Domain.csproj" />
+    <ProjectReference Include="..\MSA-Phase-3.Service\MSAPhase-3.Service.csproj" />
   </ItemGroup>
 
 </Project>
