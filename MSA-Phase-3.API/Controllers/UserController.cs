@@ -37,7 +37,7 @@ namespace MSA_Phase_3.API.Controllers
             var user = _projService.login(loginDetail);
             if (user == null)
             {
-                return BadRequest("Invalid credentials");
+                return BadRequest("Invalid wcredentials");
             }
             var claims = new[] {
                         new Claim("UserName", user.UserName)
